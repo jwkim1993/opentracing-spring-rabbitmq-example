@@ -1,2 +1,18 @@
 server:
   port: 8082
+
+spring:
+  rabbitmq:
+    host: ${RABBITMQ_HOST:rabbitmq-svc.default.svc.cluster.local}
+    port: 5672
+    username: user
+    password: tmax
+
+opentracing:
+  jaeger:
+    enable-b3-propagation: true
+    udp-sender:
+      host: ${JAEGER_UDP_SENDER_HOST:localhost}
+  spring:
+    web:
+      enabled: ${OPENTRACING_SPRING_WEB_ENABLED:true}

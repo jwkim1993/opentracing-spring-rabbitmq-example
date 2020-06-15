@@ -13,5 +13,12 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-amqp'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'com.fasterxml.jackson.core:jackson-databind'
+    implementation 'io.opentracing.contrib:opentracing-spring-jaeger-web-starter:3.1.1'
+    implementation 'io.opentracing.contrib:opentracing-spring-rabbitmq-starter:3.0.0'
+}
+
+bootJar {
+  mainClassName = 'me.hellozin.study.ConsumerApplication'
 }
