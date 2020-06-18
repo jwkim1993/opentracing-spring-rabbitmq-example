@@ -10,6 +10,7 @@ import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 @Configuration
 public class RabbitConfiguration {
@@ -19,8 +20,13 @@ public class RabbitConfiguration {
     private static final String topicExchangeName = "spring-boot-exchange";
 
     @Bean
-    Queue queue() {
+    Queue queue1() {
         return new Queue(queueName, false);
+    }
+
+    @Bean
+    Queue queue2() {
+        return new Queue(queueName+"-back", false);
     }
 
     @Bean
@@ -29,8 +35,13 @@ public class RabbitConfiguration {
     }
 
     @Bean
-    Binding binding(Queue queue, TopicExchange exchange) {
-        return BindingBuilder.bind(queue).to(exchange).with("foo.bar.#");
+    Binding binding1(@Qualifier("queue1") Queue queue, TopicExchange exchange) {
+        return BindingBuilder.bind(queue).to(exchange).with("foo.bar.baz");
+    }
+
+    @Bean
+    Binding binding2(@Qualifier("queue2") Queue queue, TopicExchange exchange) {
+	return BindingBuilder.bind(queue).to(exchange).with("foo.bar.rcv");
     }
 
     @Bean

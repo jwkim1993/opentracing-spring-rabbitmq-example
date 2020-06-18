@@ -26,4 +26,13 @@ public class RabbitController {
 
 	return message;
     }
+
+    @RequestMapping(value = "/reply", method = RequestMethod.GET)
+    public CustomMessage sendAndReceiveMsg() {
+        System.out.println("Sending message...");
+        CustomMessage message = new CustomMessage("Reply This Message!", 1, true);
+        rabbitTemplate.convertSendAndReceive(topicExchange, "foo.bar.rcv", message);
+
+	return message;
+    }
 }

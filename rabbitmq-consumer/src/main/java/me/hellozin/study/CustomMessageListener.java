@@ -11,4 +11,10 @@ public class CustomMessageListener {
         System.out.println(message);
     }
 
+    @RabbitListener(queues = "spring-boot-back")
+    public CustomMessage receiveAndSendMessage(final CustomMessage message) {
+        System.out.println(message);
+        return message;
+    }
+
 }
