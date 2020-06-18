@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: consumer-svc
+  namespace: sb-jaeger-tracing-demo
+  labels:
+    app: consumer
+spec:
+  selector:
+    app: consumer
+  type: ClusterIP
+  ports:
+  - port: 5672
+    name: rabbitmq
+  - port: 8082
+    name: serverport
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: consumer-sample
+  namespace: sb-jaeger-tracing-demo
+  labels:
+    app: consumer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: consumer
+  template:
+    metadata:
+      labels:
+        app: consumer
+    spec:
+      containers:
+      - image: ${REGISTRY_ADDR}/rabbitmq-consumer:9
+        name: consumer-sample
+        env:
+        - name: JAEGER_UDP_SENDER_HOST
+          value: jaeger-agent.istio-system.svc.cluster.local 
+        - name: RABBITMQ_HOST
+          value: rabbitmq-svc.sb-jaeger-tracing-demo.svc.cluster.local
