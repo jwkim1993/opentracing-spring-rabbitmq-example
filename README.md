@@ -70,6 +70,12 @@ $ curl -XGET (producer-service):8081/reply
 
 ## Result
 
+You can access to Jaeger UI through "tracing" service.
+
+IP address to access the UI for below case will be $(node-ip):31412
+
+![jaeger-ui](figures/jaeger-ui.png)
+
 1. send msg and no reply
 
 ![case1-figure](figures/case1-figure.png)
