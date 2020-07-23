@@ -33,7 +33,7 @@ spec:
         app: producer
     spec:
       containers:
-      - image: ${REGISTRY_ADDR}/rabbitmq-producer:9
+      - image: ${REGISTRY_ADDR}/rabbitmq-producer:latest
         name: producer-sample
         env:
         - name: JAEGER_UDP_SENDER_HOST

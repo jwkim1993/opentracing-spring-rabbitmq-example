@@ -34,7 +34,7 @@ spec:
         app: consumer
     spec:
       containers:
-      - image: ${REGISTRY_ADDR}/rabbitmq-consumer:9
+      - image: ${REGISTRY_ADDR}/rabbitmq-consumer:latest
         name: consumer-sample
         env:
         - name: JAEGER_UDP_SENDER_HOST
